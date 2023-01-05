@@ -1,0 +1,98 @@
+<style>
+  img[id=prdnew] {
+    width: 360px;
+    height: 410px;
+  }
+</style>
+<div class="hero-slider">
+  <div class="slider-item th-fullpage hero-area" style="background-image: url(assets/images/slider/slider-2.jpg);">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 text-center">
+          <p data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".1">TPNShop</p>
+          <h2 style="color: rgb(255, 230, 237);" data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".5">
+            Thời trang chỉ là nhất thời <br>
+            phong cách mới là mãi mãi</h2>
+          <a data-duration-in=".3" data-animation-in="fadeInUp" data-delay-in=".8" class="btn" [routerLink]="['/products']">Shop
+            Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section class="product-category section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="title text-center">
+          <h2>Sản Phẩm Được Yêu Thích</h2>
+        </div>
+      </div>
+
+      <div class="col-md-6" *ngFor="let product of trending_top">
+        <div class="category-box">
+          <a href="#!">
+            <img id="trendingprd" [src]="url+product.image" alt="" />
+            <a [routerLink]="['/product-detail/' + product.id]"></a>
+            <div class="content">
+              <h3>{{product.name}}</h3>
+              <h4>Sản Phẩm Được Yêu Thích</h4>
+            </div>
+          </a>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<section class="products section bg-gray">
+  <div class="container">
+    <div class="row">
+      <div class="title text-center">
+        <h2>Sản Phẩm Mới</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4" *ngFor="let product of product_New">
+        <div class="product-item">
+          <div class="product-thumb">
+            <!-- <span class="bage">Sale</span> -->
+            <img id="prdnew" [src]="url+product.image" [alt]="product.name" />
+            <div class="preview-meta">
+              <ul>
+                <li>
+                  <a [routerLink]="['/product-detail/' + product.id]"><i class="tf-ion-ios-search-strong"></i></a>
+                </li>
+                <li>
+                  <a href="#!"><i class="tf-ion-ios-heart"></i></a>
+                </li>
+                <li>
+                  <a (click)="addToCart(product.id)"><i class="tf-ion-android-cart"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="product-content">
+            <h4>
+              <a [routerLink]="['/product-detail/' + product.id]">{{ product.name }}</a>
+            </h4>
+            <p class="price">{{ product.price |number}} VND</p>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title text-center">
+            <a [routerLink]="['/products']" class="btn btn-main mt-20">Xem Tất Cả</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<div>
+  <img src="https://scontent.fdad3-1.fna.fbcdn.net/v/t1.15752-9/316563744_3724429234450733_5650562475472425423_n.png?_nc_cat=103&ccb=1-7&_nc_sid=ae9488&_nc_ohc=aW8T7nEXv1cAX8TM2zw&tn=5YFQJZ1I84gLPtTN&_nc_ht=scontent.fdad3-1.fna&oh=03_AdTlSr1q1vDHLnr3On6ub-tXA4qHXlS6zLXIPD8FvBAytQ&oe=63D5BEE8" style="width: 100%" alt="">
+</div>

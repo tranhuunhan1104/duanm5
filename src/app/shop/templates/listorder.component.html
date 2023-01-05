@@ -1,0 +1,89 @@
+<section class="page-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="content">
+          <h1 class="page-name">Giỏ hàng</h1>
+          <ol class="breadcrumb">
+            <li><a href="index.html">Trang chủ</a></li>
+            <li class="active">Giỏ hàng</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="page-wrapper">
+  <div class="cart shopping">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-md-offset-0">
+          <div class="block">
+            <div class="product-list">
+              <form method="post">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th class="">Ảnh</th>
+                      <th class="">Tên </th>
+                      <th class="">Giá</th>
+                      <th class="">Số Lượng</th>
+                      <th class="">Tổng Tiền</th>
+                      <th class="">Tùy Chọn</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of orders">
+                      <td>
+                        <div class="d-flex mb-2">
+                          <div class="flex-shrink-0">
+                            <img style="margin-left: 0px;" [src]="url+order.image" alt="" width="100px" height="100px"
+                              class="img-fluid">
+                          </div>
+                        </div>
+                      </td>
+
+                      <td class="">{{ order.name }}</td>
+                      <td class="">{{ order.price| number }} vnd</td>
+                      <td>
+                        <ul class="number">
+                          <li>
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepDown();"
+                              (click)="urlUpdatequantity(order.id, quantity.value)">
+                              <button type="button" class="minus">-</button>
+                            </a>
+                            <input #quantity name="quantity" min="1" style="width: 60px" type="number"
+                              value="{{ order.quantity }}" />
+                            <a onclick="this.parentNode.querySelector('input[type=number]').stepUp()"
+                              (click)="urlUpdatequantity(order.id, quantity.value)">
+                              <button type="button" class="plus">+</button>
+                            </a>
+                          </li>
+                        </ul>
+                      </td>
+                      <td>{{ order.price * order.quantity | number }} VND</td>
+                      <td class="">
+                        <a (click)="deleteCart(order.id)"><i class="tf-ion-close"></i></a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <h3 id="tong">Tổng Tiền Phải Trả : {{ totalPrice| number }} VND </h3>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <a [routerLink]="['/checkout/']" class="btn btn-main pull-right">Thanh toán</a>
+                <td>
+                  <!-- <a  (click)="updateCart()" class="btn btn-main pull-left">Cập nhật giỏ hàng</a> -->
+                </td>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- </div> -->

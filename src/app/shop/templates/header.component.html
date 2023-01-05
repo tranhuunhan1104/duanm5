@@ -1,0 +1,179 @@
+<style>
+  img[id=logo1] {
+    width: 100px;
+    height: 60px;
+  }
+
+  img[id=search_image] {
+    width: 100px;
+    height: 95px;
+  }
+</style>
+<section class="top-header">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <div class="contact-number">
+          <i class="tf-ion-ios-telephone"></i>
+          <span>+84-376-301-480</span>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <!-- Site Logo -->
+        <div class="logo text-center">
+          <a [routerLink]="['home']">
+            <!-- replace logo here -->
+            <img id="logo1" src="assets/images/shop/cart/logotpn.png" alt="">
+          </a>
+        </div>
+      </div>
+      <div class="col-md-4 col-xs-12 col-sm-4">
+        <!-- Cart -->
+        <ul class="top-menu text-right list-inline">
+          <li class="dropdown cart-nav dropdown-slide">
+            <a href="#" class="dropdown-toggle"><i class="tf-ion-android-cart"></i>Giỏ hàng</a>
+            <div class="dropdown-menu cart-dropdown">
+              <!-- Cart Item -->
+              <div class="media" *ngFor="let order of orders">
+                <a class="pull-left">
+                  <img class="media-object" [src]="url+order.image" alt="image" />
+                </a>
+                <div class="media-body">
+                  <h4 class="media-heading"><a href="#!">{{ order.name }}</a></h4>
+                  <div class="cart-price">
+                    <span>{{ order.quantity }} x {{ order.price| number }} vnd</span>
+                  </div>
+                </div>
+                <a href="#" (click)="deleteCart(order.id)" class="remove"><i class="tf-ion-close"></i></a>
+              </div>
+              <!-- / Cart Item -->
+
+              <div class="cart-summary">
+              </div>
+              <ul class="text-center cart-buttons">
+                <li><a [routerLink]="['listorder']" class="btn btn-small">Xem giỏ hàng</a></li>
+                <li><a [routerLink]="['/checkout/']" class="btn btn-small btn-solid-border">Thanh toán</a></li>
+              </ul>
+            </div>
+          </li><!-- / Cart -->
+
+
+          <!-- profile -->
+          <li class="dropdown dropdown-slide">
+            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+              role="button" aria-haspopup="true" aria-expanded="false"><span *ngIf="!check">
+                <a href="#" class="join" [routerLink]="['/login']">Đăng Nhập</a></span>{{name}}<span
+                class="tf-ion-ios-arrow-down"></span></a>
+            <ul *ngIf="check" class="dropdown-menu">
+              <li>
+                <a href="#" class="join" (click)="logout()">
+                  <i class="flaticon-round-account-button-with-user-inside"></i>
+                  Đăng Xuất
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <!-- / Languages -->
+        </ul>
+        <!-- / .nav .navbar-nav .navbar-right -->
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Top Header Bar -->
+<!-- Main Menu Section -->
+<section class="menu">
+
+  <nav class="navbar navigation">
+    <div class="container">
+      <div class="navbar-header">
+        <h2 class="menu-title">Main Menu</h2>
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+
+      </div>
+      <!-- / .navbar-header -->
+      <!-- Navbar Links -->
+      <div id="navbar" class="navbar-collapse collapse text-center">
+        <ul class="nav navbar-nav">
+          <!-- Home -->
+          <li class="dropdown ">
+            <a [routerLink]="['home']">Trang chủ</a>
+          </li>
+          <!-- / Home -->
+          <!-- Elements -->
+          <li class="dropdown dropdown-slide">
+            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+              role="button" aria-haspopup="true" aria-expanded="false">Sản Phẩm <span
+                class="tf-ion-ios-arrow-down"></span></a>
+            <div class="dropdown-menu">
+              <div class="row">
+                <!-- Basic -->
+                <div class="col-lg-12 col-md-12 mb-sm-3">
+                  <ul>
+                    <li class="dropdown-header">Sản Phẩm</li>
+                    <li role="separator" class="divider"></li>
+                    <li><a [routerLink]="['products']">Tất Cả Sản Phẩm</a></li>
+                  </ul>
+                </div>
+                <!-- Layout -->
+
+              </div><!-- / .row -->
+            </div><!-- / .dropdown-menu -->
+          </li><!-- / Elements -->
+          <!-- Pages -->
+          <li class="full-width dropdown-slide ">
+            <a href="#!" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="350"
+              role="button" aria-haspopup="true" aria-expanded="false">Tìm Kiếm Nhanh <span
+                class="tf-ion-ios-arrow-down"></span></a>
+
+            <div class="dropdown-menu">
+              <div class="row">
+                <!-- Introduction -->
+                <div class="col-sm-12">
+                  <ul>
+                    <div class="navbar-search search-style-5">
+                      <form action="">
+                        <div class="search-input">
+                          <input class="form-control" type="text" placeholder="Tìm kiếm nhanh" aria-label="Number"
+                            matInput (input)="handdleSearch($event)" [matAutocomplete]="auto">
+                          <mat-autocomplete #auto="matAutocomplete">
+                            <ng-container *ngFor="let product of products ">
+                              <a (click)="reloadCurrentPage(product.id)">
+                                <mat-option class="search_main" [value]="product.name">
+                                  <span><img id="search_image" class="search_image" [src]="url+product.image"
+                                      [alt]="product.name">
+                                    {{product.name}}
+                                    <b class="price_search">{{ product.price | number }}vnd</b></span>
+                                </mat-option>
+                              </a>
+                              <hr>
+                            </ng-container>
+                          </mat-autocomplete>
+                        </div>
+                      </form>
+                    </div>
+                  </ul>
+                </div>
+                <!-- Introduction -->
+              </div>
+            </div>
+          </li>
+          <!-- đăng ki -->
+          <li class="dropdown ">
+            <a [routerLink]="['/register']">Đăng kí</a>
+          </li>
+          <!-- / đăng kí -->
+        </ul>
+        <!-- / .nav .navbar-nav -->
+      </div>
+      <!--/.navbar-collapse -->
+    </div><!-- / .container -->
+  </nav>
+</section>
